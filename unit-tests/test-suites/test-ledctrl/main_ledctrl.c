@@ -1,9 +1,11 @@
 #define _MAIN_C_SRC
 
 //-------------------------MODULES USED-------------------------------------
+#include "unity.h"
 #include "same70q21b.h"
 #include "efc.h"
-#include "ledctrl.h"
+#include "same70_target_uart.h"
+#include "test1.h"
 //-------------------------DEFINITIONS AND MACORS---------------------------
 
 
@@ -29,10 +31,11 @@ int main(void)
 {
     _initSAME70();
 
-    ledctrl_blinkled(10, 200);
-    ledctrl_blinkled(8, 400);
-    ledctrl_blinkled(6, 800);
-    ledctrl_blinkled(4, 1000);
+    UnityBegin("test1.c");
+    DO_TEST(test_thatSucceeds);
+    DO_TEST(test_succeedsWithCondition);
+    UnityEnd();
+
 
     return 0;
 }
