@@ -25,16 +25,6 @@
 
 
 //-------------------------EXPORTED FUNCTIONS-------------------------------
-void setUp(void)
-{
-
-}
-
-void tearDown(void)
-{
-
-}
-
 void test_freertosSystickCorrectFreq(void)
 {
     TEST_FAIL();

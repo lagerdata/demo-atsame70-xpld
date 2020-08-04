@@ -1,18 +1,18 @@
 #define _LEDCTRL_C_SRC
 
 //-------------------------MODULES USED-------------------------------------
-
-
+#include "same70q21b.h"
 #include "ledctrl.h"
 
 
 //-------------------------DEFINITIONS AND MACORS---------------------------
 #define MIN_NUM_BLINKS 1
 #define MAX_NUM_BLINKS 9
-#define MIN_BLINK_DURATION 1
-#define MAX_BLINK_DURATION 2999
+#define MIN_BLINK_DURATION 2
+#define MAX_BLINK_DURATION 5
 
-
+#define PIO PIOC_REGS
+#define RTT RTT_REGS
 //-------------------------TYPEDEFS AND STRUCTURES--------------------------
 
 
@@ -30,7 +30,16 @@
 
 
 //-------------------------EXPORTED FUNCTIONS-------------------------------
-int32_t ledctrl_blinkled(uint32_t num_blink, uint32_t ms_blink_duration)
+int32_t ledctrl_init(void)
+{
+    PIO->PIO_PER = 1<<8;
+    PIO->PIO_OER = 1<<8;
+    RTT->RTT_MR = (1<<24 | 1<<18);
+
+    return LEDCTRL_OK;
+}
+
+int32_t ledctrl_blinkled(uint32_t num_blink, uint32_t s_blink_duration)
 {
 	if(num_blink < MIN_NUM_BLINKS){
 		return LEDCTRL_ERR;
@@ -38,37 +47,37 @@ int32_t ledctrl_blinkled(uint32_t num_blink, uint32_t ms_blink_duration)
 	if(num_blink > MAX_NUM_BLINKS){
 		return LEDCTRL_ERR;
 	}
-	if(ms_blink_duration < MIN_BLINK_DURATION){
+	if(s_blink_duration < MIN_BLINK_DURATION){
 		return LEDCTRL_ERR;
 	}
-	if(ms_blink_duration > MAX_BLINK_DURATION){
+	if(s_blink_duration > MAX_BLINK_DURATION){
 		return LEDCTRL_ERR;
 	}
-	ms_blink_duration /=2;
-    #if 0
-	HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_RESET);
+	s_blink_duration /=2;
+
+	ledctrl_onof(false);
 	for(int i=0;i<(num_blink);i++){
-		//HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_SET);
-		uint32_t t = HAL_GetTick();
-		while((t+ms_blink_duration) > HAL_GetTick());
-		HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_RESET);
-		t = HAL_GetTick();
-		while((t+ms_blink_duration) > HAL_GetTick());
+		ledctrl_onof(true);
+		uint32_t t = RTT->RTT_VR;
+		while((t+s_blink_duration) >= RTT->RTT_VR);
+		ledctrl_onof(false);
+		t = RTT->RTT_VR;
+		while((t+s_blink_duration) >= RTT->RTT_VR);
 	}
-    #endif
+
 	return LEDCTRL_OK;
 }
 
 
 int32_t ledctrl_onof(bool led_on)
 {
-    #if 0
+
 	if(led_on){
-		HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_SET);
+		PIO->PIO_SODR = 1<<8;
 	}else{
-		HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_RESET);
+		PIO->PIO_CODR = 1<<8;
 	}
-    #endif
+
 	return LEDCTRL_OK;
 }
 

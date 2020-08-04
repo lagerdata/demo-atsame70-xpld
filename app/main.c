@@ -28,11 +28,11 @@ static void _initSAME70(void);
 int main(void)
 {
     _initSAME70();
-
-    ledctrl_blinkled(10, 200);
-    ledctrl_blinkled(8, 400);
-    ledctrl_blinkled(6, 800);
-    ledctrl_blinkled(4, 1000);
+    ledctrl_init();
+    ledctrl_blinkled(5, 2);
+    ledctrl_blinkled(4, 3);
+    ledctrl_blinkled(3, 4);
+    ledctrl_blinkled(2, 5);
 
     return 0;
 }

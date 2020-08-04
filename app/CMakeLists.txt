@@ -1,7 +1,7 @@
 include(../cmake/utils.cmake)
 
 add_executable(app "")
-target_sources(app PRIVATE ${CMAKE_CURRENT_LIST_DIR}/main.c
+target_sources(app PRIVATE ${CMAKE_CURRENT_LIST_DIR}/main.c)
 
 
 set(MCHP_SRC_DIR ${CMAKE_CURRENT_LIST_DIR}/../mchp_sdk)
@@ -27,9 +27,9 @@ target_link_directories(app PRIVATE ${CMAKE_CURRENT_LIST_DIR}/../linker)
 target_link_options(app PRIVATE -mcpu=cortex-m7 -mthumb -mfloat-abi=hard -mfpu=fpv5-sp-d16 --entry=Reset_Handler -Wl,--gc-sections -Wl,--start-group -lgcc -lc -lm -Wl,--end-group --specs=nano.specs -Tatsame70q21b_flash.ld)
 
 
-firmware_size(unity-atsame70)
-generate_object(unity-atsame70 .bin binary)
+firmware_size(app)
+generate_object(app .bin binary)
 
 if ("${CMAKE_C_COMPILER_ID}" STREQUAL "GNU")
-    generate_object(unity-atsame70 .hex ihex)
+    generate_object(app .hex ihex)
 endif()

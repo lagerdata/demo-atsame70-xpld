@@ -5,7 +5,8 @@
 #include "same70q21b.h"
 #include "efc.h"
 #include "same70_target_uart.h"
-#include "test1.h"
+#include "ledctrl.h"
+#include "test_ledctrl.h"
 //-------------------------DEFINITIONS AND MACORS---------------------------
 
 
@@ -27,13 +28,26 @@ static void _initSAME70(void);
 
 
 //-------------------------EXPORTED FUNCTIONS-------------------------------
+void setUp(void)
+{
+    ledctrl_init();
+}
+
+void tearDown(void)
+{
+
+}
+
 int main(void)
 {
     _initSAME70();
 
-    UnityBegin("test1.c");
-    DO_TEST(test_thatSucceeds);
-    DO_TEST(test_succeedsWithCondition);
+    UnityBegin("modules/ledctrl.c");
+    DO_TEST(test_check_min_number_blinks);
+    DO_TEST(test_check_max_number_blinks);
+    DO_TEST(test_check_min_blink_duration);
+    DO_TEST(test_check_max_blink_duration);
+    DO_TEST(test_total_blink_length);
     UnityEnd();
 
 

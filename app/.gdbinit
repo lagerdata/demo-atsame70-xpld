@@ -25,7 +25,7 @@ monitor reset halt
 
 
 # Load the program executable called "image.elf"
-file ../_build/atsame70/unity-atsame70
+file ../_build/app/app
 
 
 set breakpoint pending on

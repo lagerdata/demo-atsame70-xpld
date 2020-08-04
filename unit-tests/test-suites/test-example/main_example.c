@@ -27,11 +27,21 @@ static void _initSAME70(void);
 
 
 //-------------------------EXPORTED FUNCTIONS-------------------------------
+void setUp(void)
+{
+
+}
+
+void tearDown(void)
+{
+
+}
+
 int main(void)
 {
     _initSAME70();
 
-    UnityBegin("test1.c");
+    UnityBegin("Test Examples");
     DO_TEST(test_thatSucceeds);
     DO_TEST(test_succeedsWithCondition);
     UnityEnd();
