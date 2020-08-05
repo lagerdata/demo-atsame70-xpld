@@ -41,8 +41,8 @@ and run it as `lager exec my_clean_cmd`
 #### Connect To board
 To flash a board first connect the Lager Gateway to the SAME70 development board.  
 There are two options to do this:  
-1. USB2.0 - This will allow users to use the ST-Link debug probe built into the SAME70 development board
-2. Cortex-Debug 20 Pin header on Gateway - This allows users to use the built-in FTDI debug probe on the Gateway (Note: Board will still need to be powered)  
+1. USB2.0 - This will allow users to use the CMSIS-DAP debug probe built into the SAME70 development board
+ 
   
 Then run:  
 `lager connect --device atsame70 --interface cmsis-dap --transport swd --speed 4000`  
