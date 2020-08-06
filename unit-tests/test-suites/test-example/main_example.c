@@ -3,6 +3,7 @@
 //-------------------------MODULES USED-------------------------------------
 #include "unity.h"
 #include "same70q21b.h"
+#include "system_same70.h"
 #include "efc.h"
 #include "same70_target_uart.h"
 #include "test1.h"
@@ -93,4 +94,5 @@ static void _initSAME70(void)
     RSWDT_REGS->RSWDT_MR = RSWDT_MR_WDDIS_Msk;	// Disable RSWDT
 
 	WDT_REGS->WDT_MR = WDT_MR_WDDIS_Msk; 		// Disable WDT
+    SystemInit();
 }

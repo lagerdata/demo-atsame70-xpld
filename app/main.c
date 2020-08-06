@@ -2,6 +2,7 @@
 
 //-------------------------MODULES USED-------------------------------------
 #include "same70q21b.h"
+#include "system_same70.h"
 #include "efc.h"
 #include "ledctrl.h"
 //-------------------------DEFINITIONS AND MACORS---------------------------
@@ -29,10 +30,13 @@ int main(void)
 {
     _initSAME70();
     ledctrl_init();
-    ledctrl_blinkled(5, 2);
-    ledctrl_blinkled(4, 3);
-    ledctrl_blinkled(3, 4);
-    ledctrl_blinkled(2, 5);
+    while(1){
+        ledctrl_blinkled(9, 200);
+        ledctrl_blinkled(8, 400);
+        ledctrl_blinkled(6, 800);
+        ledctrl_blinkled(4, 1000);
+        ledctrl_blinkled(2, 2000);
+    }
 
     return 0;
 }
@@ -80,4 +84,5 @@ static void _initSAME70(void)
     RSWDT_REGS->RSWDT_MR = RSWDT_MR_WDDIS_Msk;	// Disable RSWDT
 
 	WDT_REGS->WDT_MR = WDT_MR_WDDIS_Msk; 		// Disable WDT
+    SystemInit();
 }

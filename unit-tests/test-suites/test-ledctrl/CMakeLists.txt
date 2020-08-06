@@ -23,6 +23,7 @@ target_include_directories(test-ledctrl PRIVATE ${MCHP_SRC_DIR}/microchip/SAME70
   ${MCHP_SRC_DIR}/CMSIS/Core/Include)
 
 target_link_libraries(test-ledctrl ledctrl)
+target_link_libraries(test-ledctrl ticks)
 
 target_compile_options(test-ledctrl PRIVATE -mcpu=cortex-m7 -mthumb -mabi=aapcs -mfloat-abi=hard -mfpu=fpv5-sp-d16)
 target_compile_options(test-ledctrl PRIVATE $<$<COMPILE_LANGUAGE:C>:-Wall -Werror -g -gstrict-dwarf -ffunction-sections -fdata-sections -fno-strict-aliasing -fno-builtin -fshort-enums>)

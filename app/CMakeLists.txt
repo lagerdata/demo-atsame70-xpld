@@ -16,6 +16,7 @@ target_include_directories(app PRIVATE ${MCHP_SRC_DIR}/microchip/SAME70_DFP/4.3.
 
 
 target_link_libraries(app ledctrl)
+target_link_libraries(app ticks)
 
 target_compile_options(app PRIVATE -mcpu=cortex-m7 -mthumb -mabi=aapcs -mfloat-abi=hard -mfpu=fpv5-sp-d16)
 target_compile_options(app PRIVATE $<$<COMPILE_LANGUAGE:C>:-Wall -Werror -g -gstrict-dwarf -ffunction-sections -fdata-sections -fno-strict-aliasing -fno-builtin -fshort-enums>)

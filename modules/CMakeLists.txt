@@ -12,3 +12,19 @@ target_compile_options(ledctrl PRIVATE $<$<COMPILE_LANGUAGE:C>:-Wall -Werror -g 
 target_compile_options(ledctrl PRIVATE $<$<COMPILE_LANGUAGE:ASM>:-x assembler-with-cpp>)
 target_compile_options(ledctrl PUBLIC "-ffile-prefix-map=${CMAKE_SOURCE_DIR}=.")
 target_compile_definitions(ledctrl PRIVATE $<$<COMPILE_LANGUAGE:C>:__SAME70Q21__ DEBUG>)
+
+
+add_library (ticks STATIC "")
+target_sources(ticks PRIVATE ${CMAKE_CURRENT_LIST_DIR}/ticks.c)
+target_include_directories(ticks PUBLIC ${CMAKE_CURRENT_LIST_DIR}/)
+
+set(MCHP_SRC_DIR ${CMAKE_CURRENT_LIST_DIR}/../mchp_sdk)
+target_include_directories(ticks PRIVATE ${MCHP_SRC_DIR}/microchip/SAME70_DFP/4.3.67/same70b/include
+  ${MCHP_SRC_DIR}/microchip/SAME70_DFP/4.3.67/same70b/include/component
+  ${MCHP_SRC_DIR}/CMSIS/Core/Include)
+
+target_compile_options(ticks PRIVATE -mcpu=cortex-m7 -mthumb -mabi=aapcs -mfloat-abi=hard -mfpu=fpv5-sp-d16)
+target_compile_options(ticks PRIVATE $<$<COMPILE_LANGUAGE:C>:-Wall -Werror -g -gstrict-dwarf -ffunction-sections -fdata-sections -fno-strict-aliasing -fno-builtin -fshort-enums>)
+target_compile_options(ticks PRIVATE $<$<COMPILE_LANGUAGE:ASM>:-x assembler-with-cpp>)
+target_compile_options(ticks PUBLIC "-ffile-prefix-map=${CMAKE_SOURCE_DIR}=.")
+target_compile_definitions(ticks PRIVATE $<$<COMPILE_LANGUAGE:C>:__SAME70Q21__ DEBUG>)
