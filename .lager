@@ -4,7 +4,7 @@
 image = lagerdata/devenv-cortexm
 mount_dir = /app
 shell = /bin/bash
-cmd.build-app = mkdir -p _build;cd _build; cmake .. -G Ninja -DCMAKE_TOOLCHAIN_FILE=../cmake/arm-gcc-toolchain.cmake;cmake --build . --target app
-cmd.build = mkdir -p _build;cd _build; cmake .. -G Ninja -DCMAKE_TOOLCHAIN_FILE=../cmake/arm-gcc-toolchain.cmake;cmake --build .
+cmd.build = mkdir -p _build;cd _build;cmake .. -G Ninja -DCMAKE_TOOLCHAIN_FILE=../cmake/arm-gcc-toolchain.cmake;cmake --build .
 cmd.clean = rm -rf _build
+cmd.connect = lager connect --device atsame70 --interface cmsis-dap --transport swd --speed 4000 --force
 

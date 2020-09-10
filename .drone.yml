@@ -27,6 +27,7 @@ steps:
   - lager testrun --serial-device /dev/ttyACM0 --hexfile _build/unit-tests/test-suites/test-example/test-example.hex --test-runner unity
   - lager testrun --serial-device /dev/ttyACM0 --hexfile _build/unit-tests/test-suites/test-ledctrl/test-ledctrl.hex --test-runner unity
   - lager flash --hexfile _build/app/app.hex
+  - lager flash --hexfile _build/app/app.hex
   - lager run
 
 trigger:
