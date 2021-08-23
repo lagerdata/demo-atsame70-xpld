@@ -27,6 +27,23 @@ jobs:
           name: app_hexfile
           path: _build/app/app.hex
 
+      - name: Upload the unit example hexfile
+        uses: actions/upload-artifact@v2
+        with:
+          name: test_example_hexfile
+          path: _build/unit-tests/test-suites/test-example/test-example.hex
+
+      - name: Upload the unit ledctrl hexfile
+        uses: actions/upload-artifact@v2
+        with:
+          name: test_ledctrl_hexfile
+          path: _build/unit-tests/test-suites/test-ledctrl/test-ledctrl.hex
+
+      - name: Upload system test
+        uses: actions/upload-artifact@v2
+        with:
+          name: test_system
+          path: system-tests/test.py
 
   connect:
     runs-on: ubuntu-latest
@@ -40,6 +57,37 @@ jobs:
           entrypoint: lager
           args: connect --device atsame70 --force
 
+  unit_tests:
+    runs-on: ubuntu-latest
+    needs: [build, connect]
+    steps: 
+      - name : Download the example unit test hexfile
+        uses: actions/download-artifact@v2
+        with:
+          name: test_example_hexfile
+
+      - name : Download the ledctrl unit test hexfile
+        uses: actions/download-artifact@v2
+        with:
+          name: test_ledctrl_hexfile
+
+      - name: Unit Test Example
+        uses: docker://lagerdata/lager-cli
+        env:
+          LAGER_TOKEN_ID: ${{ secrets.LAGER_TOKEN_ID }} 
+          LAGER_TOKEN_SECRET: ${{ secrets.LAGER_TOKEN_SECRET }}
+        with:
+          entrypoint: lager
+          args: testrun --serial-device /dev/ttyACM0 --hexfile /github/workspace/test-example.hex
+
+      - name: Unit Test LedCtrl
+        uses: docker://lagerdata/lager-cli
+        env:
+          LAGER_TOKEN_ID: ${{ secrets.LAGER_TOKEN_ID }} 
+          LAGER_TOKEN_SECRET: ${{ secrets.LAGER_TOKEN_SECRET }}
+        with:
+          entrypoint: lager
+          args: testrun --serial-device /dev/ttyACM0 --hexfile /github/workspace/test-ledctrl.hex
 
   flash: #Only proceed to this step if the build and connect jobs succeeded 
     runs-on: ubuntu-latest
@@ -59,5 +107,21 @@ jobs:
           entrypoint: lager
           args: flash --hexfile /github/workspace/app.hex
 
+  system_test: #test basic BLE functionality
+    runs-on: ubuntu-latest
+    needs: [flash]
+    steps:
+      - name: Download system test
+        uses: actions/download-artifact@v2
+        with:
+          name: test_system
 
+      - name: Test System
+        uses: docker://lagerdata/lager-cli
+        env:
+          LAGER_TOKEN_ID: ${{ secrets.LAGER_TOKEN_ID }} 
+          LAGER_TOKEN_SECRET: ${{ secrets.LAGER_TOKEN_SECRET }}
+        with:
+          entrypoint: lager
+          args: python system-tests/test.py
 

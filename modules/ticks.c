@@ -31,7 +31,7 @@ void ticks_init(void)
     SystemCoreClockUpdate();
     //NOTE: For some reason SystemCoreClock isn't updated when PLL is activated, maybe that's how it's supposed to work.
     //In any case need to account for that when setting up systick
-    SysTick_Config(SystemCoreClock*10 / 1000);
+    SysTick_Config(SystemCoreClock*24 / 1000);
     NVIC_EnableIRQ(SysTick_IRQn);
 }
 

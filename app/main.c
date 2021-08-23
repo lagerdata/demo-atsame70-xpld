@@ -31,11 +31,11 @@ int main(void)
     _initSAME70();
     ledctrl_init();
     while(1){
-        ledctrl_blinkled(9, 200);
-        ledctrl_blinkled(8, 400);
-        ledctrl_blinkled(6, 800);
-        ledctrl_blinkled(4, 1000);
-        ledctrl_blinkled(2, 2000);
+        //ledctrl_blinkled(9, 200);
+        //ledctrl_blinkled(8, 400);
+        //ledctrl_blinkled(6, 800);
+        ledctrl_blinkled(5, 1000);
+        ledctrl_blinkled(5, 2000);
     }
 
     return 0;
