@@ -123,5 +123,5 @@ jobs:
           LAGER_TOKEN_SECRET: ${{ secrets.LAGER_TOKEN_SECRET }}
         with:
           entrypoint: lager
-          args: python system-tests/test.py
+          args: python /github/workspace/test.py
 
