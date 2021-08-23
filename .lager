@@ -1,7 +1,7 @@
 [LAGER]
 
 [DEVENV]
-image = lagerdata/devenv-cortexm
+image = lagerdata/devenv-cortexm-minimal:version-1.1
 mount_dir = /app
 shell = /bin/bash
 cmd.build = mkdir -p _build;cd _build;cmake .. -G Ninja -DCMAKE_TOOLCHAIN_FILE=../cmake/arm-gcc-toolchain.cmake;cmake --build .
