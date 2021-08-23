@@ -15,11 +15,13 @@ def main():
 def checkLineVoltages(gateway):
 	#Verify Line Voltages
 	resp = gateway.adc.read(output='mv')
+	#This WILL pass
 	# if abs((diff3 := (3.3 - resp[0][0]))) > 0.2:
 	# 	raise SystemExit(f"3.3V Rail out of bounds by {diff3}")
 	# if abs((diff5 := (5 - resp[0][1]))) > 0.2:
 	# 	raise SystemExit(f"5V Rail out of bounds by {diff5}")
 
+	#This WILL fail
 	if abs((diff3 := (3.3 - resp[0][0]))) > 0.01:
 		raise SystemExit(f"3.3V Rail out of bounds by {diff3}")
 	if abs((diff5 := (5 - resp[0][1]))) > 0.01:

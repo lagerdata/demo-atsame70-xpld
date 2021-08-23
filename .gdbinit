@@ -25,9 +25,8 @@ monitor reset halt
 
 
 # Load the program executable called "image.elf"
-# file ./_build/app/app
-# file ./_build/unit-tests/test-suites/test-example/test-example
-file ./_build/unit-tests/test-suites/test-ledctrl/test-ledctrl
+file ./_build/app/app
+
 
 
 set breakpoint pending on
