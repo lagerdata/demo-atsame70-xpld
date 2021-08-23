@@ -91,7 +91,7 @@ jobs:
 
   flash: #Only proceed to this step if the build and connect jobs succeeded 
     runs-on: ubuntu-latest
-    needs: [build, connect]
+    needs: [unit_tests]
     steps:
       - name: Download the app hexfile
         uses: actions/download-artifact@v2
